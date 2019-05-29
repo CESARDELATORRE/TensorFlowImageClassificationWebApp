@@ -1,0 +1,30 @@
+
+
+- Image Resizing and other settings?
+
+TensorFlowSharp settings:
+
+        public static readonly TensorFlowNeuralNetworkSettings Settings = new TensorFlowNeuralNetworkSettings()
+        {
+            InputTensorName = "Placeholder",
+            OutputTensorName = "loss",
+            InputTensorWidth = 227,
+            InputTensorHeight = 227,
+            InputTensorChannels = 3,
+            ModelFilename = "model.pb",
+            LabelsFilename = "labels.txt",
+            Threshold = 0.85f
+        };
+
+
+ML.NET settings:
+            public const int imageHeight = 227;
+            public const int imageWidth = 227;
+            public const float mean = 117;     ----->   ??????
+            public const bool channelsLast = true;   ----->   ??????
+
+
+ImagePath:
+D:\DevSpikes\MLNET-TensorFlow-Object\ImageClassification_TensorFlow\ImageClassification\bin\Debug\netcoreapp2.1\..\..\..\assets\inputs\images\broccoli.png
+
+D:\DevSpikes\MLNET-TensorFlow-Object\ImageClassification_TensorFlow\ImageClassification\bin\Debug\netcoreapp2.1\..\..\..\assets\inputs\images\green-office-chair-test.jpg

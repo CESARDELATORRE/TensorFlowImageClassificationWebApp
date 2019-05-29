@@ -1,0 +1,42 @@
+
+
+...
+var tensor = TFTensor.CreateString(image); 
+Where image is byte[] image 
+ 
+...
+Ok, Bitmap has a constructor that takes a Stream, so you can do the following:
+1. Change the ImageInputData class to have a field called "Image" of type Bitmap.
+2. Change the pipeline to start with ImageEstimatorsCatalog.Resize instead of ImageEstimatorsCatalog.LoadImages
+3. When you get a MemoryStream like above, you write var input = new ImageInputData() { Image = new Bitmap(image) }; Then you pass it to the pipeline the same way you would pass the object containing the image path to the pipline you had before.
+
+
+ERROR:
+{System.ArgumentOutOfRangeException: Could not determine an IDataView type for member Image
+Parameter name: rawType
+   at Microsoft.ML.Runtime.Api.InternalSchemaDefinition.GetVectorAndKind(Type rawType, String name, Boolean& isVector, DataKind& kind)
+   at Microsoft.ML.Runtime.Api.SchemaDefinition.Create(Type userType, Direction direction)
+   at Microsoft.ML.Runtime.Api.DataViewConstructionUtils.CreateFromEnumerable[TRow](IHostEnvironment env, IEnumerable`1 data, SchemaDefinition schemaDefinition)
+   at TensorFlowImageClassificationWebAPI.TensorFlowModelScorer.TFModelScorer.CreatePredictionFunction(Byte[] imageData) in D:\GitRepos\TensorFlowImageClassificationWebAPI\TensorFlowImageClassificationWebAPI\TensorFlowImageClassificationWebAPI\TensorFlowModelScorer\TFModelScorer.cs:line 63}
+ 
+ 
+RELATED URLs:
+
+JS Form:
+Check MVC web app eShopOnContainersAI for submit
+https://stackoverflow.com/questions/38834517/javascript-fetch-not-getting-a-response
+https://stackoverflow.com/questions/47267221/fetch-response-json-and-response-status
+
+File Uploads:
+https://www.codeproject.com/Articles/1256591/Upload-Image-to-NET-Core-2-1-API
+https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-2.1
+
+
+
+
+CONVERTING to BitMap:
+UPDATE: keep in mind that according to the documentation, and the source code I've been reading through, an ArgumentException will be thrown on these conditions:
+
+stream does not contain image data or is null.
+-or-
+stream contains a PNG image file with a single dimension greater than 65,535 pixels.
