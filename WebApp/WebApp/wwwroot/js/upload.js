@@ -34,7 +34,7 @@ form.addEventListener('submit', e => {
           //alert('Prediction is: ' + 'Label: ' + response.predictedLabel + ' Probability: ' + response.probability);
                     
           document.getElementById('divPrediction').innerHTML = "Predicted label is: " + response.predictedLabel;
-          document.getElementById('divProbability').innerHTML = "Probability is: " + response.probability;
+          document.getElementById('divProbability').innerHTML = "Probability is: " + (response.probability * 100).toFixed(3) + "%";
 
           return response;
         });

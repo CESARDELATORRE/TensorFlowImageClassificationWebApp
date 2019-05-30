@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.ML;
 using WebApp.Infrastructure;
@@ -16,20 +17,26 @@ namespace WebApp.Controllers
     [ApiController]
     public class ImageClassificationController : ControllerBase
     {
+        public IConfiguration Configuration { get; }
         private readonly PredictionEnginePool<ImageInputData, ImageLabelPredictions> _predictionEnginePool;
         private readonly ILogger<ImageClassificationController> _logger;
 
         //(CDLTLL-TODO)
-        private readonly string _tempImagesFolderPath = GetAbsolutePath(@"TempImages");
-        private readonly string _labelsFilePath = GetAbsolutePath(@"ML/TensorFlowModel/labels.txt");
+        private readonly string _tempImagesFolderPath;
+        private readonly string _labelsFilePath;
 
-        public ImageClassificationController(PredictionEnginePool<ImageInputData, ImageLabelPredictions> predictionEnginePool, ILogger<ImageClassificationController> logger) //When using DI/IoC
+        //DELETE
+        //private readonly string _tempImagesFolderPath = GetAbsolutePath(@"TempImages");
+        //private readonly string _labelsFilePath = GetAbsolutePath(@"ML/TensorFlowModel/labels.txt");
+
+        public ImageClassificationController(PredictionEnginePool<ImageInputData, ImageLabelPredictions> predictionEnginePool, IConfiguration configuration, ILogger<ImageClassificationController> logger) //When using DI/IoC
         {
             // Get the ML Model Engine injected, for scoring
             _predictionEnginePool = predictionEnginePool;
 
-            //_labelsFilePath = GetAbsolutePath(Configuration["MLModel:LabelsFilePath"]);
-            //_tempImagesFolderPath = GetAbsolutePath(Configuration["MLModel:TempImagesFolderPath"]);
+            Configuration = configuration;
+            _labelsFilePath = GetAbsolutePath(Configuration["MLModel:LabelsFilePath"]);
+            _tempImagesFolderPath = GetAbsolutePath(Configuration["MLModel:TempImagesFolderPath"]);
 
             //Get other injected dependencies
             _logger = logger;
@@ -119,7 +126,6 @@ namespace WebApp.Controllers
         {
             var max = probs.Max();
             var index = probs.AsSpan().IndexOf(max);
-
 
             if (max > 0.7)
                 return (labels[index], max);
