@@ -83,12 +83,12 @@ namespace ImageClassification.ModelScorer
 
         public void Predict()
         {
-            var predictionEngine = _mlContext.Model.CreatePredictionEngine<ImageInputData, ImageNetPrediction>(_mlModel);
+            var predictionEngine = _mlContext.Model.CreatePredictionEngine<ImageInputData, ImagePrediction>(_mlModel);
 
             var predictions = PredictDataUsingModel(_dataLocation, _imagesFolder, _labelsLocation, predictionEngine).ToArray();
         }
 
-        protected IEnumerable<ImagePredictedLabelWithProbability> PredictDataUsingModel(string testLocation, string imagesFolder, string labelsLocation, PredictionEngine<ImageInputData, ImageNetPrediction> predictionEngine)
+        protected IEnumerable<ImagePredictedLabelWithProbability> PredictDataUsingModel(string testLocation, string imagesFolder, string labelsLocation, PredictionEngine<ImageInputData, ImagePrediction> predictionEngine)
         {
             ConsoleWriteHeader("Classificate images");
             Console.WriteLine($"Images folder: {imagesFolder}");
