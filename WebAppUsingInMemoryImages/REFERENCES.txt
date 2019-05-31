@@ -1,0 +1,17 @@
+
+
+[ImageType]
+
+
+https://github.com/dotnet/machinelearning/blob/02a857a7646188fec2d1cba5e187a6c9d0838e23/test/Microsoft.ML.Tests/ImagesTests.cs
+
+https://github.com/dotnet/machinelearning/blob/a9fcdfd12165888b8d86e5f3b992ffa5b37cba09/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/ImageAnalytics/LoadImages.cs
+
+https://github.com/dotnet/machinelearning/blob/a9fcdfd12165888b8d86e5f3b992ffa5b37cba09/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/ImageAnalytics/ResizeImages.cs
+
+https://github.com/dotnet/machinelearning/blob/a9fcdfd12165888b8d86e5f3b992ffa5b37cba09/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/ImageAnalytics/ExtractPixels.cs
+
+DnnFeaturizeImage
+-----------------
+https://github.com/dotnet/machinelearning/blob/a5f09772279b1f947072ff5ca28e27c76726e156/docs/samples/Microsoft.ML.Samples/Dynamic/Transforms/ImageAnalytics/DnnFeaturizeImage.cs
+
