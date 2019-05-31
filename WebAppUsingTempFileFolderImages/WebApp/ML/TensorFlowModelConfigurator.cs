@@ -45,8 +45,8 @@ namespace WebApp.ML
                 .Append(_mlContext.Transforms.ResizeImages(outputColumnName: TensorFlowModelSettings.inputTensorName, imageWidth: ImageSettings.imageWidth, imageHeight: ImageSettings.imageHeight, inputColumnName: TensorFlowModelSettings.inputTensorName))
                 .Append(_mlContext.Transforms.ExtractPixels(outputColumnName: TensorFlowModelSettings.inputTensorName, interleavePixelColors: ImageSettings.channelsLast, offsetImage: ImageSettings.mean))
                 .Append(_mlContext.Model.LoadTensorFlowModel(tensorFlowModelFilePath).
-                ScoreTensorFlowModel(outputColumnNames: new[] { "loss" },
-                                    inputColumnNames: new[] { "Placeholder" }, addBatchDimensionInput: false));
+                ScoreTensorFlowModel(outputColumnNames: new[] { TensorFlowModelSettings.outputTensorName },
+                                    inputColumnNames: new[] { TensorFlowModelSettings.inputTensorName }, addBatchDimensionInput: false));
 
             ITransformer mlModel = pipeline.Fit(CreateEmptyDataView());
             return mlModel;
